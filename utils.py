@@ -14,7 +14,7 @@ def streamlit_theme():
     base_size = 16
     lg_font = base_size * 1.25
     sm_font = base_size * 0.8  # st.table size
-    xl_font = base_size * 1.75
+    xl_font = base_size * 1.75  # noqa
 
     config = {
         "config": {
@@ -118,7 +118,7 @@ def streamlit_theme_alt():
     base_size = 16
     lg_font = base_size * 1.25
     sm_font = base_size * 0.8  # st.table size
-    xl_font = base_size * 1.75
+    xl_font = base_size * 1.75  # noqa
 
     config = {
         "config": {
@@ -317,3 +317,36 @@ def img_to_bytes(img_path):
 @st.cache
 def read_markdown_file(markdown_file):
     return Path(markdown_file).read_text()
+
+
+def top_strain_suppliers(strain_data):
+    top_suppliers = list(strain_data["org_name"].value_counts().head(8).index)
+    cmap = dict(zip(top_suppliers, category_large))
+
+    def supplier_colormap(supplier):
+        c = cmap.get(supplier)
+        if c:
+            h = c.lstrip("#")
+            r, g, b = tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
+            rgba = f"rgba({r}, {g}, {b}, 0.5)"
+        return f"background-color: {rgba};" if c else "background-color: #fff"
+
+    return supplier_colormap
+
+
+def get_top_test_values(strain_data):
+    top5_test = (
+        strain_data.sort_values("thc_max", ascending=False)[
+            ["org_name", "date_test", "thc_max"]
+        ]
+        .head(10)
+        .assign(thc_max=lambda d: d["thc_max"].apply("{0:.1f}".format))
+    )
+    return top5_test
+
+
+def get_top_test_table(strain_data):
+    supplier_colormap = top_strain_suppliers(strain_data)
+    top5_tests = get_top_test_values(strain_data)
+    styled_table = top5_tests.style.applymap(supplier_colormap, subset=["org_name"])
+    return styled_table

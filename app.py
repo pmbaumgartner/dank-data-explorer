@@ -1,5 +1,4 @@
 import streamlit as st
-from pathlib import Path
 from utils import (
     load_data,
     strain_counts,
@@ -8,7 +7,7 @@ from utils import (
     img_to_bytes,
     read_markdown_file,
     colnames,
-    category_large,
+    get_top_test_table,
 )
 from pprint import pformat
 
@@ -58,27 +57,7 @@ st.altair_chart(scatter(strain_data))
 
 st.altair_chart(line(strain_data))
 
-most_recent_suppliers = list(strain_data["org_name"].value_counts().head(8).index)
-cmap = dict(zip(most_recent_suppliers, category_large))
 
-
-def colormap(supplier):
-    c = cmap.get(supplier)
-    if c:
-        h = c.lstrip("#")
-        r, g, b = tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
-        rgba = f"rgba({r}, {g}, {b}, 0.5)"
-    return f"background-color: {rgba};" if c else "background-color: #fff"
-
-
-top5_test = (
-    strain_data.sort_values("thc_max", ascending=False)[
-        ["org_name", "date_test", "thc_max"]
-    ]
-    .head(10)
-    .assign(thc_max=lambda d: d["thc_max"].apply("{0:.1f}".format))
-)
-
-styler = top5_test.style.applymap(colormap, subset=["org_name"])
 st.markdown("### Top 10 Highest THC Measurements")
-st.table(styler)
+styled_test_table = get_top_test_table(strain_data)
+st.table(styled_test_table)
