@@ -5,4 +5,8 @@ This app explores data from [a research paper](https://www.nature.com/articles/s
 
 More details about the dataset are available via the help buttons on the left.
 
+💡 This app was built to be an example for many of the ideas I've written down in my notes on [Streamlitopedia](https://pmbaumgartner.github.io/streamlitopedia/)
+
+💻 The code is available [here](https://github.com/pmbaumgartner/dank-data-explorer).
+
 </details>
