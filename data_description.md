@@ -1,0 +1,3 @@
+#### Dataset Description
+
+<small>Replication data for all analyses contained within *The Cannabinoid Content of Legal Cannabis in Washington State Varies Systematically Across Testing Facilities and Popular Consumer Strains & Products.* Dataset comprises Washington’s LCB i502 Recreational Cannabis testing data from June 2014 to May 2017 with additional columns appended from Leafly strain data. Each row is a test result for a recreational cannabis product in the i502 Washington LCB data. Columns with the prefix ”strain ” contain values that do not vary within strain and are missing if the test result did not match to a strain in the Leafly.com strain database. The data contain 24 Columns and 304,123 rows.</small>
