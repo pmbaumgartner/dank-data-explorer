@@ -19,7 +19,7 @@ st.markdown(
     header_html, unsafe_allow_html=True,
 )
 
-intro_markdown = desc_markdown = Path("intro.md").read_text()
+intro_markdown = read_markdown_file("intro.md")
 st.markdown(intro_markdown, unsafe_allow_html=True)
 
 
