@@ -54,9 +54,9 @@ if dict_check:
 
 st.markdown("---")
 st.markdown("## Strain Testing Data")
-st.altair_chart(scatter(strain_data), width=-1)
+st.altair_chart(scatter(strain_data))
 
-st.altair_chart(line(strain_data), width=-1)
+st.altair_chart(line(strain_data))
 
 most_recent_suppliers = list(strain_data["org_name"].value_counts().head(8).index)
 cmap = dict(zip(most_recent_suppliers, category_large))
