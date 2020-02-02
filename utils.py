@@ -277,7 +277,7 @@ def scatter(strain_data):
     sort_order = top_8_orgs + [remaining_str]
 
     chart_base = alt.Chart(
-        data, title="THC Measurements by Supplier", height=800, width=400
+        data, title="THC Measurements by Supplier", width=600, height=300
     )
     chart = chart_base.mark_circle(size=100, opacity=0.9).encode(
         x=alt.X("THC Max:Q"),
@@ -294,7 +294,9 @@ def scatter(strain_data):
 
 def line(strain_data):
     data = strain_data.rename(columns=colnames)
-    chart_base = alt.Chart(data, title="THC Measurements by Date", width=500)
+    chart_base = alt.Chart(
+        data, title="THC Measurements by Date", width=600, height=300
+    )
     chart = chart_base.mark_circle(strokeWidth=0, opacity=0.8).encode(
         x=alt.X("Test Date:T"), y=alt.Y("THC Max:Q"), color=alt.Color("THC Max:Q",),
     )
